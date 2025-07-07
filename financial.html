@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+   
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+    .box button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Financial Support Schemes<br>(ఆర్థిక మద్దతు)</h1>
+   <table>
+  <tr>
+    <td><div class="card" onclick="showDetails(0)">
+      <h3>Annadatha Sukhibhava (AP)</h3>
+      <p>అన్నదాత సుఖభవ (AP)</p>
+    </div>
+    </td>
+<td><div class="card" onclick="showDetails(1)">
+      <h3>PM-Kisan Samman Nidhi</h3>
+      <p>PM కిసాన్ సమ్మాన్ నిధి</p>
+    </div></td></tr>
+<tr><td><div class="card" onclick="showDetails(2)">
+      <h3>PM Kisan Maan Dhan Yojana (Pension)</h3>
+      <p>PM కిసాన్ మాన్ ధన్ పింఛన్</p>
+    </div></td></tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+  
+{
+  details: "Annadatha Sukhibhava was a farmer welfare scheme launched by the Government of Andhra Pradesh to provide direct income support to farmers. Under this scheme, each eligible farmer received ₹10,000 to ₹20,000 annually depending on the landholding. It aimed to supplement PM-KISAN benefits and provide timely financial aid for crop investment. This scheme was merged into YSR Rythu Bharosa in later stages. (అన్నదాత సుఖీభవ పథకం ఆంధ్రప్రదేశ్ ప్రభుత్వం ప్రారంభించిన రైతు సంక్షేమ పథకం. ఈ పథకం ద్వారా అర్హత కలిగిన ప్రతి రైతు కు భూ పరిమాణాన్ని బట్టి సంవత్సరానికి ₹10,000 నుండి ₹20,000 వరకు నేరుగా ఆర్థిక సహాయం అందింది. ఇది PM-KISAN పథకాన్ని పూర్తిచేసే విధంగా ఉండేది మరియు పంట పెట్టుబడికి సకాలంలో సహాయపడేది. తరువాత ఈ పథకం వైఎస్ఆర్ రైతు భరోసాలో విలీనం చేయబడింది.)",
+
+  crops: "All types of crops grown by eligible farmers, including paddy, pulses, oilseeds, cotton, maize, and horticulture crops. (అర్హత కలిగిన రైతులు సాగు చేసే అన్ని రకాల పంటలు — ధాన్యం, కందులు, నూనె గింజల పంటలు, పత్తి, మక్క మరియు తోటల పంటలు.)",
+
+  importance: "This scheme was introduced to reduce the burden of crop investment on farmers and ensure financial security. It complemented central schemes and strengthened farmer support systems in the state. (ప్రాధాన్యత: పంట పెట్టుబడుల భారం తగ్గించేందుకు మరియు రైతులకు ఆర్థిక భద్రత కల్పించేందుకు ఈ పథకం ప్రవేశపెట్టబడింది. ఇది కేంద్ర పథకాలను పూరకంగా వ్యవహరించి, రాష్ట్ర రైతు మద్దతు వ్యవస్థను బలోపేతం చేసింది.)",
+
+  link: "https://apagrisnet.gov.in/"
+},
+{
+  details: "PM-Kisan Samman Nidhi is a central government scheme launched by the Ministry of Agriculture & Farmers Welfare. It provides ₹6,000 per year to all eligible small and marginal farmers across India. The amount is transferred directly into the bank accounts of farmers in three equal installments of ₹2,000 each. The scheme aims to supplement farmers' income and support their agricultural expenses. (PM-కిసాన్ సన్నిహిత నిధి పథకం కేంద్ర వ్యవసాయ మరియు రైతు సంక్షేమ మంత్రిత్వశాఖ ప్రవేశపెట్టినది. ఇది దేశవ్యాప్తంగా ఉన్న అర్హత కలిగిన చిన్న మరియు అతి చిన్న రైతులకు సంవత్సరానికి ₹6,000 మద్దతుగా అందిస్తుంది. ఈ మొత్తాన్ని మూడు విడతలుగా ₹2,000 చొప్పున నేరుగా రైతుల బ్యాంకు ఖాతాలో జమ చేస్తారు. ఈ పథకం రైతుల ఆదాయాన్ని పూరకంగా ఉపయోగపడుతుంది మరియు వ్యవసాయ ఖర్చులకు సహాయపడుతుంది.)",
+
+  crops: "Applicable to all crops grown by small and marginal land-holding farmers, without crop-specific restrictions. (అర్హత కలిగిన చిన్న మరియు అతి చిన్న భూమి కలిగిన రైతులు సాగు చేసే అన్ని పంటలకు వర్తిస్తుంది. పంట ఆధారిత పరిమితి ఉండదు.)",
+
+  importance: "The scheme provides assured income support to millions of farmers across the country, reducing dependence on private money lenders and ensuring timely agricultural operations. (ఈ పథకం దేశవ్యాప్తంగా లక్షల మంది రైతులకు భరోసా కలిగించే ఆదాయ మద్దతును అందిస్తుంది. ఇది రైతులను ప్రైవేట్ అప్పుల నుండి దూరంగా ఉంచి, వ్యవసాయ పనులు సకాలంలో పూర్తిచేయడంలో సహాయపడుతుంది.)",
+
+  link: "https://pmkisan.gov.in/"
+},
+{
+  details: "The PM-Kisan Maandhan Yojana is a central government pension scheme for small and marginal farmers. It provides a monthly pension of ₹3,000 after the age of 60. Farmers between the ages of 18 and 40 can enroll by contributing a small monthly premium (starting at ₹55). The central government matches the contribution. The pension ensures income security in old age. (PM-కిసాన్ మాన్‌ధన్ యోజన అనేది చిన్న మరియు అతి చిన్న రైతుల కోసం కేంద్ర ప్రభుత్వం ప్రవేశపెట్టిన పింఛన్ పథకం. ఈ పథకం ద్వారా 60 ఏళ్ల తర్వాత ప్రతి నెల ₹3,000 పింఛన్ అందించబడుతుంది. 18 నుండి 40 సంవత్సరాల వయస్సున్న రైతులు నెలకు ₹55 ప్రారంభ వార్షిక చందాతో నమోదు చేసుకోవచ్చు. కేంద్ర ప్రభుత్వం కూడా అంతే మొత్తాన్ని చెల్లిస్తుంది. ఈ పథకం వృద్ధాప్యంలో ఆదాయ భద్రతను కల్పిస్తుంది.)",
+
+  crops: "The scheme is not crop-specific; it is open to all small and marginal farmers regardless of the type of crops they grow. (ఈ పథకం పంట ఆధారితంగా కాదు; అన్ని రకాల చిన్న మరియు అతి చిన్న రైతులు పంట లేని పరిమితితో అర్హులు.)",
+
+  importance: "It supports farmers in old age by providing a steady income. This scheme helps reduce financial dependency and gives dignity to elderly farmers. (ఈ పథకం వృద్ధాప్యంలో రైతులకు స్థిరమైన ఆదాయంతో సహాయం చేస్తుంది. ఇది ఆర్థిక ఆధారాన్ని తగ్గించడంతో పాటు వృద్ధ రైతులకు గౌరవాన్ని కల్పిస్తుంది.)",
+
+  link: "https://maandhan.in/scheme/pkmy"
+}
+
+
+      
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>

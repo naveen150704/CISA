@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+   
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+    .box button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Mechanisation<br>(యంత్రాల మద్దతు)</h1>
+   <table>
+  <tr><td><div class="card" onclick="showDetails(0)">
+      <h3>SMAM – Farm Mechanisation</h3>
+      <p>SMAM – వ్యవసాయ యంత్రాల సబ్సిడీ</p>
+    </div>
+</td>
+    <!-- Card 2 -->
+    <td><div class="card" onclick="showDetails(1)">
+      <h3>Rythu Sadhana & Seed/Village Seed Scheme</h3>
+      <p>రైతు సాధన & విత్తన పథకం</p>
+    </div>
+    </td></tr><tr>
+<td><div class="card" onclick="showDetails(2)">
+      <h3>Drip Irrigation & Power Subsidies</h3>
+      <p>డ్రిప్ ఇర్రిగేషన్ & విద్యుత్ సబ్సిడీలు</p>
+    </div></td></tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+        {
+  details: "The Sub-Mission on Agricultural Mechanisation (SMAM) is a central government scheme aimed at promoting the use of modern agricultural machinery and equipment. It provides subsidies to farmers, especially small and marginal ones, for purchasing farm tools such as tractors, power tillers, harvesters, and other implements. The goal is to increase productivity, reduce manual labor, and make farming more efficient. (వ్యవసాయ యాంత్రీకరణ ఉప మిషన్ (SMAM) అనేది ఆధునిక వ్యవసాయ యంత్రాలు మరియు పరికరాల వినియోగాన్ని ప్రోత్సహించేందుకు కేంద్ర ప్రభుత్వం ప్రవేశపెట్టిన పథకం. ఈ పథకం ద్వారా రైతులు, ముఖ్యంగా చిన్న మరియు అతి చిన్న రైతులు, ట్రాక్టర్లు, పవర్ టిల్లర్లు, హార్వెస్టర్లు మరియు ఇతర పరికరాల కొనుగోలుకు సబ్సిడీ పొందగలుగుతారు. దీని లక్ష్యం ఉత్పాదకతను పెంచడం, కృషిని తగ్గించడం మరియు వ్యవసాయాన్ని మరింత సమర్థవంతంగా మార్చడం.)",
+
+  crops: "Applicable to all types of crops, since the machinery is used for multiple purposes such as land preparation, sowing, harvesting, and post-harvest activities. (ఈ పథకం అన్ని రకాల పంటలకు వర్తిస్తుంది, ఎందుకంటే పరికరాలు భూమి తయారీ, విత్తనం వేసే పని, కోత మరియు పంటల అనంతర నిర్వహణ వంటి విభిన్న పనుల కోసం ఉపయోగిస్తారు.)",
+
+  importance: "The scheme helps reduce physical labor, saves time, and improves crop productivity. It also enables small and marginal farmers to access modern tools through subsidies, which they otherwise could not afford. (ఈ పథకం రైతుల శ్రమను తగ్గించడమే కాకుండా, సమయాన్ని ఆదా చేస్తుంది మరియు పంటల దిగుబడిని మెరుగుపరుస్తుంది. సాధారణంగా వీటిని కొనుగోలు చేయలేని చిన్న రైతులకు కూడా ఆధునిక పరికరాలు సబ్సిడీ ద్వారా అందుబాటులోకి వస్తాయి.)",
+
+  link: "https://agrimachinery.nic.in/"
+},
+{
+  details: "The Rythu Sadhana and Seed Scheme, also known as the Village Seed Scheme, is implemented by the Government of Andhra Pradesh to supply quality seeds and farm implements to farmers at subsidized rates. The scheme aims to improve seed availability, enhance crop productivity, and reduce input costs for farmers by providing certified seeds and essential agricultural tools. (రైతు సాధన మరియు విత్తన పథకం, గ్రామ విత్తన పథకం గా కూడా పిలవబడుతుంది, ఆంధ్రప్రదేశ్ ప్రభుత్వం ద్వారా అమలు పరచబడుతుంది. ఈ పథకం ద్వారా రైతులకు సర్టిఫైడ్ విత్తనాలు మరియు అవసరమైన వ్యవసాయ పరికరాలు సబ్సిడీ రేట్లలో అందించడం జరుగుతుంది. దీని లక్ష్యం విత్తనల అందుబాటు పెంచడం, పంటల దిగుబడిని మెరుగుపరచడం మరియు రైతుల పెట్టుబడులను తగ్గించడం.)",
+
+  crops: "Applicable to all major crops grown in the state including paddy, pulses, oilseeds, cotton, and horticulture crops. (అర్హత కలిగిన పంటలు: రాష్ట్రంలో సాగు అయ్యే ప్రధాన పంటలు – ధాన్యం, కందులు, నూనె గింజలు, పత్తి మరియు తోటల పంటలు.)",
+
+  importance: "This scheme ensures timely access to high-quality seeds and farm equipment, which directly contributes to higher yields and better farm management. It supports small and marginal farmers in enhancing their agricultural productivity. (ఈ పథకం ద్వారా రైతులు అధిక నాణ్యత గల విత్తనాలు మరియు పరికరాలను సకాలంలో పొందగలుగుతారు, ఇది పంటల దిగుబడిని పెంచడంలో మరియు వ్యవసాయ నిర్వహణలో సహాయపడుతుంది. ఇది చిన్న మరియు అతి చిన్న రైతుల ఉత్పాదకత పెంచడంలో సహాయపడుతుంది.)",
+
+  link: "https://apagrisnet.gov.in/"
+},
+{
+  details: "The Drip Irrigation and Power Subsidy schemes are promoted by the Government of Andhra Pradesh to encourage efficient water use and reduce electricity costs for farmers. Under these schemes, subsidies are provided for installing drip irrigation systems and for electricity consumption related to agricultural pumping. The aim is to conserve water, improve irrigation efficiency, and reduce farmers' input costs. (డ్రిప్ ఇరిగేషన్ మరియు విద్యుత్ సబ్సిడీ పథకాలు ఆంధ్రప్రదేశ్ ప్రభుత్వం ద్వారా ప్రవేశపెట్టబడ్డవి, వాటి ద్వారా నీటి సమర్థవంతమైన వినియోగం ప్రోత్సహించడం మరియు రైతుల విద్యుత్ ఖర్చులను తగ్గించడం లక్ష్యం. డ్రిప్ ఇరిగేషన్ వ్యవస్థల సంస్థాపనకు మరియు వ్యవసాయ పంపింగ్ విద్యుత్ వినియోగానికి సబ్సిడీలు అందిస్తారు. దీని ద్వారా నీటి ఆదా, నీటి సరఫరా సమర్థత పెరుగుతుంది మరియు రైతుల ఖర్చులు తగ్గుతాయి.)",
+
+  crops: "Applicable to all crops where drip irrigation is feasible, including horticultural crops, vegetables, and commercial crops like cotton and sugarcane. (అర్హత కలిగిన పంటలు: డ్రిప్ ఇరిగేషన్ అనుకూలంగా ఉన్న అన్ని పంటలు, అందులో తోట పంటలు, కూరగాయలు మరియు వాణిజ్య పంటలు (పత్తి, చెక్కెరగడ) ఉన్నాయి.)",
+
+  importance: "These subsidies help farmers adopt modern irrigation techniques, save water resources, and reduce electricity bills, thereby increasing farm profitability and sustainability. (ఈ సబ్సిడీలు రైతులకు ఆధునిక నీటి శాసన పద్ధతులను ఆమోదించడంలో సహాయపడతాయి, నీటిని ఆదా చేస్తాయి మరియు విద్యుత్ బిల్లులను తగ్గిస్తాయి. దీని వలన వ్యవసాయ లాభదాయకత మరియు సుస్థిరత పెరుగుతుంది.)",
+
+  link: "https://horticulture.ap.nic.in/"
+}
+     
+
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>

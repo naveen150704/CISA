@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+   
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+    .box button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Crop Insurance Schemes<br>(పంట బీమా)</h1>
+   <table>
+  <tr><td><div class="card" onclick="showDetails(0)">
+      <h3>Pradhan Mantri Fasal Bima Yojana (PMFBY)</h3>
+      <p>ప్రధాన్ మంత్రి ఫసల్ బీమా యోజన (PMFBY)</p>
+    </div>
+</td>
+    <!-- Card 2 -->
+    <td><div class="card" onclick="showDetails(1)">
+      <h3>Free Crop Insurance Scheme</h3>
+      <p>ఉచిత పంట బీమా</p>
+    </div>
+    </td></tr><tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+   {
+  details: "The Pradhan Mantri Fasal Bima Yojana (PMFBY) is a central government crop insurance scheme launched to provide financial support to farmers in the event of crop failure due to natural calamities, pests, or diseases. It offers low premium rates (2% for Kharif, 1.5% for Rabi, and 5% for commercial/horticultural crops), and the remaining premium is subsidized by the government. Claims are settled directly into farmers' bank accounts. (ప్రధాన్ మంత్రి ఫసల్ బీమా యోజన (PMFBY) అనేది పంటలు ప్రకృతి వైపరీత్యాలు, తెగుళ్లు లేదా వ్యాధుల వల్ల నష్టపోతే రైతులకు ఆర్థిక సహాయం అందించేందుకు కేంద్ర ప్రభుత్వం ప్రారంభించిన పంట బీమా పథకం. ఇది తక్కువ ప్రీమియంతో అందుబాటులో ఉంది – ఖరీఫ్ కోసం 2%, రబీ కోసం 1.5%, వాణిజ్య/తోటల పంటల కోసం 5%. మిగిలిన మొత్తం ప్రభుత్వమే భరిస్తుంది. బీమా క్లెయిమ్ నేరుగా రైతుల బ్యాంకు ఖాతాలో జమ చేయబడుతుంది.)",
+  
+  crops: "Cereal crops (paddy, wheat, maize), pulses, oilseeds, commercial crops (cotton, sugarcane), and horticultural crops. (అర్హత కలిగిన పంటలు: ధాన్యం (బియ్యం, గోధుమ, మక్క), కందులు, నూనె గింజల పంటలు, వాణిజ్య పంటలు (పత్తి, చెక్కెర గడ), తోటల పంటలు.)",
+  
+  importance: "This scheme provides a safety net to farmers against unpredictable crop losses and helps in stabilizing their income. It reduces the financial burden during disasters and encourages farmers to continue cultivation confidently. (ప్రాధాన్యత: ఈ పథకం రైతులకు అనూహ్యమైన పంట నష్టాల నుండి రక్షణను అందిస్తుంది మరియు వారి ఆదాయాన్ని స్థిరంగా ఉంచడంలో సహాయపడుతుంది. ప్రకృతి వైపరీత్యాల సమయంలో ఆర్థిక భారం తగ్గించడంలో ఇది కీలక పాత్ర పోషిస్తుంది మరియు రైతులు ధైర్యంగా సాగు కొనసాగించేందుకు సహాయపడుతుంది.)",
+  
+  link: "https://pmfby.gov.in/"
+},
+{
+  details: "The YSR Free Crop Insurance Scheme is implemented by the Government of Andhra Pradesh to provide **completely free crop insurance** to farmers. Unlike other schemes, farmers do not have to pay any premium (only ₹1 for enrollment), and the entire insurance cost is borne by the state government. The scheme covers crop losses due to natural disasters like floods, droughts, cyclones, and pest attacks. (వైఎస్ఆర్ ఉచిత పంట బీమా పథకం ఆంధ్రప్రదేశ్ ప్రభుత్వం చేపట్టినది, ఇది రైతులకు పూర్తిగా ఉచిత పంట బీమా అందించడానికి ఉద్దేశించబడింది. ఇతర పథకాలతో పోలిస్తే, ఈ పథకంలో రైతులు ప్రీమియంగా ఒక్క రూపాయే చెల్లిస్తారు, మిగిలిన మొత్తం ప్రభుత్వమే భరిస్తుంది. వరదలు, ఎండలు, తుఫానులు, తెగుళ్ల వల్ల జరిగే పంట నష్టాలకు ఈ పథకం కవరేజ్ ఇస్తుంది.)",
+
+  crops: "Major crops such as paddy, groundnut, maize, black gram, green gram, cotton, sugarcane, chilies, and horticulture crops grown in notified areas. (అర్హత కలిగిన పంటలు: ధాన్యం, వేరుసెనగ, మక్క, మినుము, పెసలు, పత్తి, చెక్కెర గడ, మిరపకాయలు, మరియు గుర్తించబడిన ప్రాంతాల్లో సాగు చేసే తోటల పంటలు.)",
+
+  importance: "This scheme eliminates the financial burden of insurance premiums for farmers, ensuring maximum enrollment and protection. It provides relief to farmers in times of crop failure and stabilizes agricultural income in the state. (ప్రాధాన్యత: ఈ పథకం ద్వారా రైతులపై బీమా ప్రీమియం భారం లేకుండా చేయడం వల్ల, ఎక్కువ మంది రైతులు ప్రయోజనం పొందగలుగుతారు. పంట నష్టం సంభవించినప్పుడు రైతులకు ఆదరణగా నిలిచే ఈ పథకం, రాష్ట్రంలో వ్యవసాయ ఆదాయాన్ని స్థిరంగా ఉంచడంలో సహాయపడుతుంది.)",
+
+  link: "https://apagrisnet.gov.in/"
+}
+
+
+
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>

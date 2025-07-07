@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+   
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+    .box button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Irrigation<br>(నీటి నిర్వహణ)</h1>
+   <table>
+  <tr><td><div class="card" onclick="showDetails(0)">
+      <h3>Jalayagnam</h3>
+      <p>జలయాగ్నం</p>
+    </div>
+</td>
+    <!-- Card 2 -->
+    <td><div class="card" onclick="showDetails(1)">
+      <h3>NTR Jalasiri Scheme (revival)</h3>
+      <p>ఎన్‌టీఆర్ జలశిరి పునఃప్రారంభం</p>
+    </div>
+    </td></tr><tr>
+<td><div class="card" onclick="showDetails(2)">
+      <h3>Timely Water Release Initiative</h3>
+      <p>కాలప్రయోజనీయ నీటి విడుదల</p>
+    </div></td></tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+        {
+  details: "Jalayagnam is a major irrigation initiative launched by the Government of Andhra Pradesh to provide assured irrigation to the drought-prone and rain-dependent areas of the state. The program aims to construct and complete multiple irrigation projects to bring more cultivable land under assured irrigation. It includes large-scale dam construction, canal systems, and water management infrastructure to ensure year-round water supply to farmers. (జలయజ్ఞం అనేది ఆంధ్రప్రదేశ్ ప్రభుత్వం చేపట్టిన ప్రధానమైన నీటి ప్రాజెక్టు పథకం. ఇది వర్షాధారంగా ఉండే మరియు ఎండల బారిన పడే ప్రాంతాల్లోని భూములకు భరోసా నీరందించేందుకు ఉద్దేశించబడింది. ఈ పథకం కింద అనేక నీటి ప్రాజెక్టులను నిర్మించడం, పూర్తి చేయడం ద్వారా సాగు భూములను నీటిపారుదల పరిధిలోకి తీసుకురావడం లక్ష్యంగా పెట్టుకుంది. దీనిలో డ్యామ్‌లు, కాలువల వ్యవస్థలు, నీటి నిర్వహణ మౌలిక సదుపాయాలు ఉన్నాయి, ఇవి సంవత్సరంతా నీటి సరఫరా కోసం ఉపయోగపడతాయి.)",
+
+  crops: "Supports all irrigated crops including paddy, sugarcane, cotton, pulses, and horticultural crops that require regular water supply. (ఈ పథకం పది, చెక్కెర గడ, పత్తి, కందులు, తోటల పంటలు వంటి సాగు నీటి అవసరం ఉన్న అన్ని పంటలను మద్దతు ఇస్తుంది.)",
+
+  importance: "By expanding irrigation coverage, Jalayagnam helps stabilize farm incomes, reduce dependence on rainfall, and improve overall agricultural productivity. It is vital for drought mitigation and food security in the state. (నీటి సరఫరాను పెంచడం ద్వారా, ఈ పథకం రైతుల ఆదాయాన్ని స్థిరంగా ఉంచడంలో, వర్షంపై ఆధారాన్ని తగ్గించడంలో మరియు వ్యవసాయ ఉత్పాదకతను పెంచడంలో సహాయపడుతుంది. ఇది ఎండల నివారణకు మరియు ఆహార భద్రతకు కీలకం.)",
+
+  link: "https://irrigation.ap.gov.in/"
+},
+  {
+  details: "NTR Jalasiri 2.0 is the revived version of the NTR Jalasiri borewell irrigation initiative by the Andhra Pradesh government. It aims to provide solar and electric pumpsets and borewells to small and marginal farmers—especially SC/ST and rain-dependent farmers—to ensure reliable irrigation. The scheme leverages state funds, NABARD, and central programs to enhance access to groundwater for agriculture. (ఎన్టీఆర్ జలశిరి 2.0 ఆంధ్రప్రదేశ్ ప్రభుత్వపు బోరు బావుల సాగు నీటి ప్రాజెక్టును తిరిగి ప్రారంభించిన ఫేజ్. ఇది చిన్న మరియు అతి చిన్న రైతులకు, ముఖ్యంగా SC/ST మరియు వర్షానుభావిత రైతులకు సోలార్ & విద్యుత్ పంపుసెట్లు మరియు బోరు బావులు అందించేందుకు లక్ష్యంగా ఉంది. ఈ పథకం రాష్ట్ర నిధులు, NABARD మరియు కేంద్ర పథకాల ఉపయోగంతో గ్రౌండ్‌వాటర్‌కి యాక్సెస్‌ను మెరుగుపరిచేందుకు పని చేస్తోంది.)",
+
+  crops: "Supports all irrigated crops including paddy, pulses, oilseeds, horticultural crops, and commercial crops that benefit from reliable groundwater irrigation. (అర్హత కలిగిన పంటలు: ధాన్యం, పప్పులు, నూనెగింజలు, తోట పంటలు, వాణిజ్య పంటలు – ఈ పథకం నియంత్రిత భూగర్భ జల ఆధారంగా సాగు చేయబడే అన్ని పంటలకు వర్తిస్తుంది.)",
+
+  importance: "This scheme enhances irrigation reliability for marginal farmers, reduces dependency on erratic rainfall, and promotes sustainable agriculture. With solar-powered systems and borewell access, it increases productivity and reduces electricity costs. (ప్రాధాన్యత: ఈ పథకం అతి చిన్న రైతులకు సాగు నీటి లభ్యత పెంచుతుంది, అనిశ్చిత వర్షంపై ఆధారాన్ని తగ్గిస్తుంది మరియు సుస్థిర వ్యవసాయాన్ని ప్రోత్సహిస్తుంది. సోలార్-పవర్ పంపులు మరియు బోరు బావుల ద్వారా ఇది ఉత్పాదకతను పెంచి, విద్యుత్ ఖర్చులను తగ్గిస్తుంది.)",
+
+  link: "http://irrigation.ap.gov.in/" 
+},
+{
+  details: "The Timely Water Release Initiative by the Andhra Pradesh government ensures irrigation water is released early to delta regions—especially Krishna and Godavari—so farmers can begin Kharif sowing on time and avoid cyclone/rain-related losses. This involves coordinated releases from reservoirs like Prakasam Barrage, Pulichintala, and Patiseema, often 2–3 weeks earlier than usual. (కాలసమయానికి నీటివిడుదల కార్యక్రమం ఆంధ్రప్రదేశ్ ప్రభుత్వం చేపట్టింది. ఇది ప్రధానంగా నదుల డెల్టా ప్రాంతాలకు (కృష్ణా, గొడవరి) పాటిఫల కాలుష్యాలు లేదా తుఫానుల కారణంగా రైతులకు వచ్చే పంట నష్టం నివారించడానికి, ఖరీఫ్ విత్తనం సకాలంలో ప్రారంభించడానికి నీటిని ముందుగా విడుదల చేస్తుంది. పలికే ప్రాకాశం బ్యారేజ్, పులిచింతల, పట్టిసీమ వంటి జలాశయాల నుంచి సాధారణంగా 2–3 వారాలు ముందుగా నీరు విడుదల చేయబడుతుంది.)",
+
+  crops: "Primarily targets paddy in the Krishna and Godavari delta regions, but benefits all crops sown during the early Kharif season. (అర్హత కలిగిన పంటలు: ప్రధానంగా కృష్ణా, గొడవరి డెల్టా ప్రాంతాల్లో సాగుతోన్న ధాన్యానికి వర్తించగా, ఖరీఫ్ సీజన్‌లో సాగు అయ్యే అన్ని పంటలకు అనుకూలంగా ఉంటుంది.)",
+
+  importance: "Early water release helps farmers avoid cyclone and rain-related damage, enables timely sowing, and opens the possibility of a third crop due to prolonged irrigation window. It stabilizes yields and boosts agricultural income. (ప్రాధాన్యత: ముందుగా నీటిని విడుదల చేయడం వల్ల రైతులు తుఫానులు, అవరోధాల వల్ల వచ్చే నష్టం నుండి మార్కెట్ బాగా రక్షిస్తున్నారు. విత్తనాన్ని సకాలంలో ప్రారంభించవచ్చు, సాగు కాలంలో నీటిపరిమితి పెరిగి మూడవ పంట అవకాశాన్ని కూడా ఇస్తుంది. ఇది పంటల దిగుబడిని స్థిరపరిచేలా, రైతుల ఆదాయాన్ని పెంపొందిస్తుంది.)",
+
+  link: "https://irrigation.ap.gov.in/"
+}
+ 
+
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>

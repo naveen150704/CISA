@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+    button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Crop Diversification<br>(పంట వైవిధ్యం)</h1>
+   <table>
+  <tr><td><div class="card" onclick="showDetails(0)">
+      <h3>Oil Palm Development Scheme</h3>
+      <p>(నూనె అభివృద్ధి పథకం)</p>
+    </div>
+</td>
+    <!-- Card 2 -->
+    <td><div class="card" onclick="showDetails(1)">
+      <h3>National & AP Horticulture Missions</h3>
+      <p>(రాష్ట్రీయ తోటవృక్ష మిషన్)</p>
+    </div>
+    </td></tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+      {
+        details: "The Oil Palm Development Scheme is implemented by the Government of Andhra Pradesh to promote oil palm cultivation among farmers. The scheme offers free oil palm seedlings, financial assistance of ₹5,250 per hectare per year for four years, and subsidies for drip irrigation and agricultural equipment related to oil palm farming. It aims to boost domestic production and reduce import dependency.(ఈ పథకం ద్వారా ఆంధ్రప్రదేశ్ ప్రభుత్వం palm oil సాగును ప్రోత్సహించేందుకు రైతులకు ఉచిత మొక్కలు, ప్రతి హెక్టేరు కి ఏడాదికి ₹5,250 నిధులు (నాలుగు సంవత్సరాల పాటు), డ్రిప్ ఇరిగేషన్ మరియు వ్యవసాయ పరికరాలపై సబ్సిడీలు ఇస్తుంది. దీని లక్ష్యం దేశీయ ఉత్పత్తిని పెంచి దిగుమతి పై ఆధారాన్ని తగ్గించడం.)",
+        crops: "Oil Palm is the only crop eligible under this scheme.(అర్హత కలిగిన పంటలు: ఈ పథకం కింద palm oil మాత్రమే అర్హత కలిగి ఉంటుంది.)",
+        importance: "This scheme encourages crop diversification by promoting oil palm, a highly profitable commercial crop. It provides long-term returns for farmers, ensures better market linkage, and helps meet India's edible oil demand.(ప్రాధాన్యత: palm oil లాభదాయకమైన వాణిజ్య పంటగా రైతులకు స్థిరమైన ఆదాయం ఇస్తుంది. ఇది పంట వైవిధ్యాన్ని ప్రోత్సహిస్తుంది, మార్కెట్ లింకేజులను మెరుగుపరుస్తుంది మరియు భారతదేశంలోని తినుబండార నూనెలకు సరఫరా పెరిగేలా చేస్తుంది.)",
+        link:"https://horticulture.ap.nic.in/index.html",
+    },
+      {
+  details: "The National Horticulture Mission (NHM) and Andhra Pradesh State Horticulture Mission (SHM) are aimed at promoting holistic growth of the horticulture sector. They provide financial assistance for cultivation, post-harvest management, protected cultivation (like greenhouses), cold storage, and marketing infrastructure. Andhra Pradesh receives special focus due to its high horticulture potential. (జాతీయ తోటల మిషన్ (NHM) మరియు రాష్ట్ర తోటల మిషన్ (SHM) తోటల రంగాన్ని సమగ్రంగా అభివృద్ధి చేయడం లక్ష్యంగా ఉన్నాయి. ఈ పథకాల ద్వారా సాగు, పంటల అనంతర నిర్వహణ, గ్రీన్‌హౌస్‌లు వంటి రక్షిత సాగు, కోల్డ్ స్టోరేజ్ మరియు మార్కెట్ మౌలిక సదుపాయాల కోసం ఆర్థిక సహాయం అందుతుంది. తోటల ఉత్పత్తిలో ఆంధ్రప్రదేశ్ రాష్ట్రానికి ప్రత్యేక ప్రాధాన్యం ఇవ్వబడింది.)",
+  
+  crops: "Fruits (mango, banana, guava, citrus), vegetables (tomato, chili, brinjal), spices (turmeric, ginger), medicinal plants, floriculture crops, and plantation crops like coconut and areca nut. (అర్హత కలిగిన పంటలు: మామిడి, అరటి, జామ, నిమ్మ వంటి పండ్లు; టమాట, మిరప, వంకాయ వంటి కూరగాయలు; పసుపు, అల్లం వంటి మసాలా పంటలు; ఔషధ మొక్కలు; పుష్ప సాగు పంటలు; కొబ్బరి, సుపారి వంటి తోటల పంటలు.)",
+  
+  importance: "This scheme increases farmers' income by encouraging high-value crops, sustainable horticulture practices, and providing support for cold storage, processing, and market access. It also helps in creating employment opportunities in rural areas. (ప్రాధాన్యత: ఈ పథకం రైతులకు అధిక విలువ గల పంటల సాగు ద్వారా ఆదాయం పెంచడంలో సహాయపడుతుంది. కోల్డ్ స్టోరేజ్, ప్రాసెసింగ్, మార్కెట్ లింకేజులకు మద్దతుతో పాటు గ్రామీణ ప్రాంతాలలో ఉపాధి అవకాశాలను సృష్టిస్తుంది.)",
+  
+  link: "https://midh.gov.in/"
+}
+
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>

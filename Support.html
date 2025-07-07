@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>CISA(Crop Insurance Service Awarness)</title>
+  <style>
+    body, html {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; 
+    }
+    header {
+        margin-top: 0%;
+        height: 7%;
+        width: 100%;
+      background-color: rgba(28, 27, 27, 0.375);
+      position: center;
+       color: lightgreen;
+    }
+
+    footer {
+      background-color: rgba(28, 27, 27, 0.375);
+      position: relative;
+      margin-top: 0%;
+      text-align: center;
+      color: goldenrod;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      height: 100px;
+      width: 170px;
+    }
+    .content {
+        margin-top: 21%;
+        margin-bottom: 0%;
+      position: center;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      transform: translateY(-50%);
+      font-family: Arial, sans-serif;
+    }
+   
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: rgba(28, 27, 27, 0.375);
+      border: 2px solid #333;
+      padding: 20px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      color: rgb(224, 191, 24);
+    }
+    .box button{
+        background-color: rgba(225, 222, 222, 0.556);
+        color: white;
+        padding: 10px;
+        margin : 10px;
+        height: 75px;
+        width: 150px;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+
+    /* Overlay for projected card */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay .full-card {
+      background: white;
+      width: 100%;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .overlay .close-btn:hover {
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+    <centre><h1 style="margin-left: 30%;">CISA(Crop Insurance Service Awarness)<br><centre style="margin-left: 8%;">పంట బీమా సేవల అవగాహన</centre></h1></centre> 
+</header>
+<button style="margin-top: 1%;margin-left: 90%;height: 30px;" onclick="location.href='index.html'">HOME</button>
+  <video class="bg-video" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="content"><div class="box">
+    <!-- Card 1 -->
+     <centre><h1>Inputs & Support<br>(విత్తన మద్దతు)</h1>
+   <table>
+  <tr><td><div class="card" onclick="showDetails(0)">
+      <h3>Seed Subsidy / Seed Village Program</h3>
+      <p>విత్తన సబ్సిడీ / విత్తన గ్రామ పథకం</p>
+    </div>
+</td>
+    <!-- Card 2 -->
+    <td><div class="card" onclick="showDetails(1)">
+      <h3>Soil Health Card Programme</h3>
+      <p>భూమి ఆరోగ్య కార్డు</p>
+    </div>
+    </td></tr><tr>
+<td><div class="card" onclick="showDetails(2)">
+      <h3>Input Subsidy Scheme</h3>
+      <p>ఇన్పుట్ సబ్సిడీ పథకం</p>
+    </div></td></tr>
+    </table>
+
+  <!-- Hidden Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="full-card" id="fullCard">
+      <span class="close-btn" onclick="closeDetails()">×</span>
+      <div id="cardContent">
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const Schemes = [
+     {
+  details: "The Seed Subsidy or Seed Village Program is a government initiative to promote the production and distribution of high-quality certified seeds at the village level. The program provides subsidies to farmers for producing and purchasing quality seeds, aiming to improve crop yield and ensure seed availability locally. It supports sustainable agriculture by encouraging seed self-sufficiency in villages. (సీడ్ సబ్సిడీ / సీడ్ విలేజ్ ప్రోగ్రామ్ అనేది గ్రామ స్థాయిలో అధిక నాణ్యత గల సర్టిఫైడ్ విత్తనాల ఉత్పత్తి మరియు పంపిణీని ప్రోత్సహించే ప్రభుత్వ పథకం. ఈ పథకం రైతులకు నాణ్యమైన విత్తనాల ఉత్పత్తి మరియు కొనుగోలుకు సబ్సిడీలు అందించి పంటల దిగుబడిని మెరుగుపరచడం మరియు విత్తన అందుబాటును స్థానికంగా నిలిపివ్వడమే లక్ష్యం. ఇది గ్రామాలలో విత్తన స్వయంపూర్ణతను ప్రోత్సహించడం ద్వారా సుస్థిర వ్యవసాయాన్ని కల్పిస్తుంది.)",
+
+  crops: "Applicable to all major crops where certified seed production is feasible, including cereals, pulses, oilseeds, and horticultural crops. (అర్హత కలిగిన పంటలు: ధాన్యం, కందులు, నూనెగింజలు మరియు తోట పంటలు వంటి సర్టిఫైడ్ విత్తన ఉత్పత్తి సాధ్యమైన అన్ని ప్రధాన పంటలు.)",
+
+  importance: "By ensuring the availability of quality seeds at the village level, the scheme improves crop productivity and farmers’ income. It reduces dependency on external seed suppliers and enhances the quality of agricultural produce. (గ్రామ స్థాయిలో నాణ్యమైన విత్తనాల అందుబాటును నిర్ధారించడం ద్వారా పంటల దిగుబడిని మరియు రైతుల ఆదాయాన్ని పెంచుతుంది. ఇది బాహ్య విత్తన సరఫరాదారులపై ఆధారాన్ని తగ్గిస్తుంది మరియు వ్యవసాయ ఉత్పత్తి నాణ్యతను మెరుగుపరుస్తుంది.)",
+
+  link: "https://apagrisnet.gov.in/"
+},
+{
+  details: "The Soil Health Card Programme is a government initiative aimed at providing farmers with detailed information about the nutrient status of their soil. The program issues soil health cards that contain recommendations on appropriate fertilizers and soil amendments for different crops based on soil testing. This helps farmers apply the right nutrients in the right quantities to improve soil fertility and crop yields. (మట్టితో సంబంధం ఉన్న పోషకాల స్థితిని రైతులకు తెలియజేయడానికి ప్రభుత్వం ప్రారంభించిన పథకం ఇది. ఈ కార్యక్రమంలో, మట్టిని పరీక్షించి, పంటలకు సరైన ఎరువులు మరియు మట్టి సంస్కరణల సలహాలను కలిగిన 'సోయిల్ హెల్త్ కార్డులు' ఇవ్వబడతాయి. ఇది రైతులకు సరైన ఎరువులు సరైన పరిమాణంలో ఉపయోగించడానికి సహాయపడుతుంది, తద్వారా మట్టి సార్వత్రికత మరియు పంట దిగుబడులు మెరుగవుతాయి.)",
+
+  crops: "Applicable to all crops cultivated by farmers as soil health affects all agricultural produce. (రైతులు సాగు చేసే అన్ని పంటలకు వర్తిస్తుంది, ఎందుకంటే మట్టి ఆరోగ్యం అన్ని పంటలపై ప్రభావం చూపుతుంది.)",
+
+  importance: "The program promotes balanced use of fertilizers, improves soil fertility, reduces input costs, and increases productivity. It contributes to sustainable agriculture and environmental protection. (ఈ పథకం సంతులిత ఎరువు వినియోగాన్ని ప్రోత్సహిస్తుంది, మట్టి సార్వత్రికతను మెరుగుపరుస్తుంది, పెట్టుబడి ఖర్చులను తగ్గిస్తుంది మరియు ఉత్పాదకతను పెంచుతుంది. ఇది సుస్థిర వ్యవసాయం మరియు పర్యావరణ సంరక్షణకు సహాయపడుతుంది.)",
+
+  link: "https://soilhealth.dac.gov.in/"
+},
+{
+  details: "The Input Subsidy Scheme is designed to provide financial assistance to farmers for purchasing essential agricultural inputs like fertilizers, pesticides, seeds, and other farm materials at subsidized rates. The scheme helps reduce the overall cost of cultivation and encourages the use of quality inputs to increase crop productivity. (ఇన్‌పుట్ సబ్సిడీ పథకం రైతులకు ఎరువులు, کیటకనాశకాలు, విత్తనాలు మరియు ఇతర వ్యవసాయ సామగ్రి వంటి అవసరమైన పంట సామగ్రి కొరకు ఆర్థిక సహాయం సబ్సిడీతో అందించడానికి రూపొందించబడింది. ఈ పథకం పంటల సాగు మొత్తం ఖర్చును తగ్గిస్తుంది మరియు నాణ్యమైన ఇన్‌పుట్లను ఉపయోగించి పంటల దిగుబడిని పెంచడానికి ప్రోత్సహిస్తుంది.)",
+
+crops: "Applicable to all major crops grown in Andhra Pradesh including cereals, pulses, oilseeds, cotton, and horticultural crops. (ఆంధ్రప్రదేశ్ లో సాగు అయ్యే ధాన్యాలు, కందులు, నూనెగింజలు, పత్తి మరియు తోట పంటలతో పాటు అన్ని ప్రధాన పంటలకు వర్తిస్తుంది.)",
+
+  importance: "By lowering input costs, the scheme helps farmers increase their net income and adopt improved agricultural practices, leading to better yields and sustainability. (ఇన్‌పుట్ ఖర్చులను తగ్గించడం ద్వారా, ఈ పథకం రైతులకు వారి స్థిర ఆదాయాన్ని పెంచేందుకు మరియు మెరుగైన వ్యవసాయ పద్ధతులను ఆమోదించేందుకు సహాయపడుతుంది, తద్వారా పంట దిగుబడి మరియు సుస్థిరత మెరుగుపడుతుంది.)",
+
+  link: "https://apagrisnet.gov.in/"
+}
+
+
+    ];
+
+    function showDetails(index) {
+      const scheme = Schemes[index];
+      const contentDiv = document.getElementById('cardContent');
+      contentDiv.innerHTML = `
+     <h2>Details:${scheme.details}</h2>
+    <h4>Eligible crops: ${scheme.crops}</h4>
+    <p>Importance: ${scheme.importance}</p>
+    <a href="${scheme.link}" target="_blank">
+      <button style="
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #007ACC;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      ">
+        Know more (మరికొంత సమాచారం)
+      </button>
+    </a>
+      `;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closeDetails() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+  <footer>
+    <p>© 2025 Published By Naveen</p>
+  </footer>
+</body>
+</html>
